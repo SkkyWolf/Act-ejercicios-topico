@@ -23,8 +23,6 @@ function calcularArea() {
 
 }
 
-//document.getElementById("calcular").addEventListener("click", calcularArea);
-
 document.getElementById('calcular').addEventListener("click", function(){
     calcularArea();
     document.getElementById('seleccion').value = "";
