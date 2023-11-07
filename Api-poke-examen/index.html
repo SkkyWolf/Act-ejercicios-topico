@@ -2,27 +2,49 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>Poke api</title>
 </head>
 
 <body>
+    <div id="alert" class="alerta hide">
+        <span id="info-alert">Texto de ejemplo</span>
+        <button id="close-alert">X</button>
+    </div>
 
     <div class="container-ajuste">
-        <img src="./img/logo-pokemon.png" alt="Logo Pokémon">
+        <img src="./img/logo-pokemon.png" alt="Logo Pokémon" />
     </div>
+
     <div class="estiloInput">
-        <input type="text" id="nombreInput" placeholder="Filitrar por nombre">
-        <input type="text" id="habilidadInput" placeholder="Filitrar por habilidad">
-        <input type="number" id="cantidadPokemon" placeholder="Cantidad" value="0">
+        <input id="nombreInput" placeholder="Buscar pokemon..." />
+        <button id="buscar">Buscar</button>
+        <button id="limpiar" disabled>Limpiar</button>
     </div>
-    <div id="pokemon-list" class="pokemon-container"></div>
+
     <div class="boxEquipo">
         <h2>Equipo pokemon</h2>
     </div>
-    <div id="pokemon-agregar" class="pokemon-container"></div>
+
+    <div id="equipo-pokemon" class="pokemon-container"></div>
+
+    <div class="estiloInput">
+        Historial
+        <button id="sort">Ordenar por nivel</button>
+        <button id="water-type">
+            ¿Existe un pokemon de agua en el historial?
+        </button>
+    </div>
+
+    <div id="historial" class="pokemon-container"></div>
+
+    <div id="show-water-type" class="container-ajuste">
+        <img src="https://archives.bulbagarden.net/media/upload/thumb/b/b6/Squirtle_Squad.png/1200px-Squirtle_Squad.png"
+            alt="Squirtle_Squad" />
+        <h1>Todavía no existen</h1>
+    </div>
 
     <script src="scripts.js"></script>
 </body>

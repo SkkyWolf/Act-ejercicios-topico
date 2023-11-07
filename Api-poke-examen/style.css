@@ -2,29 +2,29 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-body {
+  }
+  
+  body {
     background-image: url(./img/fondo-pokemon.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-}
-
-.container-ajuste {
+    backdrop-filter: brightness(0.65);
+  }
+  
+  .container-ajuste {
     margin-top: 40px;
     display: flex;
     justify-content: center;
     margin: 20px 65px;
     border-radius: 20px;
-}
-
-.container-ajuste img {
+  }
+  
+  .container-ajuste img {
     width: 400px;
-    
-}
-
-.boxEquipo{
+  }
+  
+  .boxEquipo {
     display: flex;
     justify-content: space-evenly;
     background-color: yellow;
@@ -33,85 +33,85 @@ body {
     width: auto;
     padding: 25px;
     margin: 29px 58px;
-}
-
-.boxEquipo h2{
+  }
+  
+  .boxEquipo h2 {
     text-decoration: none;
     font-size: 25px;
-}
-
-
-.pokemon-container {
+  }
+  
+  .pokemon-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 40px;
     text-align: center;
-    margin: 20px 60px;
-}
-
-
-.pokemonBox {
+    margin: 0.5rem;
+    padding: 1em 0.75em;
+    max-height: 50vh;
+    overflow: auto;
+    background-image: linear-gradient(#ffffff80 0%, #ffffff80 100%);
+  }
+  
+  .pokemonBox {
     background-color: yellow;
     border: 4px solid rgb(14, 44, 128);
     border-radius: 20px;
     width: auto;
-}
-
-.ajuste{
+  }
+  
+  .ajuste {
     display: flex;
     align-items: center;
-}
-
-.estiloInput{
+  }
+  
+  .estiloInput {
     text-align: center;
-    
-}
-
-.estiloInput input{
+  }
+  
+  .estiloInput input,
+  .estiloInput select {
     width: 400px;
     height: 40px;
     border-radius: 10px;
     padding-left: 20px;
     background-color: yellow;
     border: 4px solid rgb(14, 44, 128);
-}
-
-.estiloInput input::placeholder{
+  }
+  
+  .estiloInput input::placeholder {
     font-size: 15px;
     margin-right: 1.5rem;
-
-}
-
-.estiloInput #cantidadPokemon{
+  }
+  
+  .estiloInput #cantidadPokemon {
     width: 10rem;
     text-align: center;
-}
-
-.estiloInput input:focus{
-outline: none;
-}
-
-
-.pokemonBox img{
+  }
+  
+  .estiloInput input:focus {
+    outline: none;
+  }
+  
+  .pokemonBox img {
     margin-left: 50px;
-}
-
-.pokemonBox h1 {
+  }
+  
+  .pokemonBox h1 {
     font-weight: 400;
     width: 2px;
-}
-
-.textStyle{
+  }
+  
+  .textStyle {
     display: flex;
     justify-content: space-around;
     margin-bottom: 20px;
     font-weight: 600;
-    color: #17285e;   
-    font-family: 'Poppins', sans-serif;
+    color: #17285e;
+    font-family: "Poppins", sans-serif;
     align-items: center;
-}
-
-button{
+  }
+  
+  button {
     padding: 5px;
     border-radius: 12px;
     background-color: yellow;
@@ -120,13 +120,57 @@ button{
     color: #0e2c80;
     font-weight: 700;
     cursor: pointer;
-}
-
-button:hover{
+  }
+  
+  button:hover {
     background-color: #25325519;
-}
-
-button:active{
+  }
+  
+  button:active {
     background-color: #2532552f;
     transform: translateY(2px);
-}
+  }
+  
+  button:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+  
+  .alerta {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 3rem;
+    background-color: darkseagreen;
+    color: black;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+  }
+  
+  #close-alert {
+    color: red;
+    border: 2px solid;
+    background-color: transparent;
+    padding: 0.75em;
+    font-size: 1.2rem;
+    margin: 1rem;
+  }
+  
+  .hide {
+    visibility: hidden !important;
+    display: none !important;
+  }
+  
+  #show-water-type * {
+    display: none;
+    visibility: none;
+  }
+  
+  #show-water-type.yes > img,
+  #show-water-type.no > h1 {
+    display: block !important;
+    visibility: visible !important;
+  }

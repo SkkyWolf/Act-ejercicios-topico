@@ -1,114 +1,175 @@
-async function displayPokemon(filtros) {
-    const cantidadInput = document.getElementById('cantidadPokemon').value;
+const pokemonParty = [];
+const historial = [];
+const tipos = [
+  "Selecciona...",
+  "Normal",
+  "Lucha",
+  "Volador",
+  "Veneno",
+  "Tierra",
+  "Roca",
+  "Bicho",
+  "Fantasma",
+  "Acero",
+  "Fuego",
+  "Agua",
+  "Planta",
+  "Eléctrico",
+  "Psíquico",
+  "Hielo",
+  "Dragón",
+  "Siniestro",
+  "Hada",
+];
 
-    let apiUrl;
+document.addEventListener("DOMContentLoaded", () => {
+  // CONTROLS
+  const input = document.getElementById("nombreInput");
+  const buscar = document.getElementById("buscar");
+  const limpiar = document.getElementById("limpiar");
 
-    if (cantidadInput >= 0 && cantidadInput <= 1000) {
-        apiUrl = `https://pokeapi.co/api/v2/pokemon?limit=${cantidadInput}`;
-    } else {
-        alert('Por favor ingresa una cantidad entre 0 y 1000');
-        return;
+  // ALERT
+  const span = document.getElementById("info-alert");
+  const btn = document.getElementById("close-alert");
+  const div = document.getElementById("alert");
+
+  // SHOW
+  const equipoPokemon = document.getElementById("equipo-pokemon");
+  const historialEl = document.getElementById("historial");
+  const showWaterType = document.getElementById("show-water-type");
+
+  // HISTORY
+  const sortBtn = document.getElementById("sort");
+  const waterTypeBtn = document.getElementById("water-type");
+
+  function _alert(msg) {
+    div.classList.remove("hide");
+    span.textContent = msg;
+    btn.onclick = () => div.classList.add("hide");
+  }
+
+  async function buscarFn(nombrePokemon) {
+    if (!nombrePokemon) {
+      _alert("Ingrese un nombre valido!");
+      return;
     }
+
+    const apiUrl = "https://pokeapi.co/api/v2/pokemon/" + nombrePokemon;
 
     try {
-        const response = await fetch(apiUrl);
-        if (response.status === 200) {
-            const pokemonData = await response.json();
-            addPokemon(pokemonData.results, filtros);
-        } else {
-            alert("No se encontraron pokémon");
-        }
+      const response = await fetch(apiUrl);
+
+      if (response.status === 200) {
+        const pokemonData = await response.json();
+        console.log(pokemonData);
+        addPokemon(pokemonData);
+      } else _alert("No se encontró el pokémon " + nombrePokemon);
     } catch (error) {
-        alert('Error al obtener los datos: ' + error);
+      _alert("Error al obtener los datos: " + error);
     }
-}
+  }
 
+  function addPokemon(pokemon) {
+    input.value = "";
+    historial.push(pokemon);
 
-async function addPokemon(pokemonList, filtros) {
-    const allListPoke = document.getElementById('pokemon-list');
-    allListPoke.innerHTML = '';
-
-    for (const pokemon of pokemonList) {
-        try {
-            const response = await fetch(pokemon.url);
-            if (response.status === 200) {
-                const pokemonData = await response.json();
-                if (pokemonData.name.includes(filtros.nombre) && pokemonData.abilities.some(ability => ability.ability.name.includes(filtros.habilidad))) {
-                    const pokemonElement = document.createElement('div');
-                    pokemonElement.classList.add('pokemon-card');
-
-                    pokemonElement.innerHTML = `
-                        <div class="pokemonBox">
-                            <div class="ajuste">
-                                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${pokemonData.id}.png">
-                                <h1>${pokemonData.name}</h1>
-                            </div>
-                            <div class="textStyle">
-                                <p>Habilidades: ${pokemonData.abilities[0].ability.name}</p>
-                                <p>Base de experiencia: ${pokemonData.base_experience}</p>
-                                <button>Agregar</button>
-                            </div>
-                        </div>
-                    `;
-
-                    pokemonElement.querySelector('button').addEventListener('click', function () {
-                        agregarPokemonAlEquipo(pokemonData);
-                    });
-
-                    allListPoke.appendChild(pokemonElement);
-                }
-            }
-        } catch (error) {
-            alert('Error al obtener los datos del pokémon: ' + error);
-        }
+    if (pokemonParty.includes(pokemon.name)) {
+      _alert("Este pokemon existe en el equipo!");
+      return;
+    } else if (pokemonParty.length >= 3) {
+      limpiar.disabled = false;
+      buscar.disabled = true;
+      _alert("El equipo pokemon ya está lleno!");
+      return;
+    } else if (pokemonParty.length === 2) {
+      limpiar.disabled = false;
+      buscar.disabled = true;
+      _alert("Se ha llenado el equipo!");
     }
-}
 
-function agregarPokemonAlEquipo(pokemonData) {
-    const equipoPokemon = document.getElementById('pokemon-agregar');
-    const pokemonElement = document.createElement('div');
-    pokemonElement.classList.add('pokemon-card');
+    pokemonParty.push(pokemon.name);
 
+    const pokemonElement = document.createElement("div");
+    pokemonElement.classList.add("pokemon-card");
     pokemonElement.innerHTML = `
         <div class="pokemonBox">
             <div class="ajuste">
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${pokemonData.id}.png">
-                <h1>${pokemonData.name}</h1>
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png">
+                <h1>${pokemon.name}</h1>
             </div>
             <div class="textStyle">
-                <p>Habilidades: ${pokemonData.abilities[0].ability.name}</p>
-                <p>Base de experiencia: ${pokemonData.base_experience}</p>
-                <button>Quitar</button>
+                <p>Base de experiencia: ${pokemon.base_experience}</p>
+                <p>Habilidades: ${pokemon.abilities[0].ability.name}</p>
+                <p>Tipo: ${pokemon.types[0].type.name}</p>
             </div>
         </div>
     `;
-
-    pokemonElement.querySelector('button').addEventListener('click', function () {
-        equipoPokemon.removeChild(pokemonElement);
-    });
-
     equipoPokemon.appendChild(pokemonElement);
-}
+  }
 
-function filtro() {
-    const nombreInput = document.getElementById('nombreInput');
-    const habilidadInput = document.getElementById('habilidadInput');
-    displayPokemon({
-        nombre: nombreInput.value.toLowerCase(),
-        habilidad: habilidadInput.value.toLowerCase()
-    });
-}
+  function limpiarFn() {
+    equipoPokemon.replaceChildren();
+    limpiar.disabled = true;
+    buscar.disabled = false;
+    pokemonParty.splice(0, pokemonParty.length);
+  }
 
-document.addEventListener('DOMContentLoaded', function () {
-    displayPokemon({ nombre: '', habilidad: '' });
-    document.getElementById('nombreInput').addEventListener('input', filtro);
-    document.getElementById('habilidadInput').addEventListener('input', filtro)
+  function sortFn() {
+    historialEl.replaceChildren();
 
+    if (historial.length === 0) {
+      _alert("No hay nada en el historial!");
+      return;
+    }
 
-    document.getElementById('cantidadPokemon').addEventListener('keydown', function (event) {
-        if (event.key === "Enter") {
-            displayPokemon({ nombre: '', habilidad: '' });
+    const sorted = historial.sort((a, b) =>
+      a.base_experience > b.base_experience ? 1 : -1
+    );
+
+    for (const pokemon of sorted) {
+      const pokemonElement = document.createElement("div");
+      pokemonElement.classList.add("pokemon-card");
+      pokemonElement.innerHTML = `
+        <div class="pokemonBox">
+            <div class="ajuste">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png">
+                <h1>${pokemon.name}</h1>
+            </div>
+            <div class="textStyle">
+                <p>Base de experiencia: ${pokemon.base_experience}</p>
+                <p>Habilidades: ${pokemon.abilities[0].ability.name}</p>
+                <p>Tipo: ${pokemon.types[0].type.name}</p>
+            </div>
+        </div>
+        `;
+      historialEl.appendChild(pokemonElement);
+    }
+  }
+
+  function checkWater() {
+    let hasWater = false;
+
+    for (const pokemon of historial) {
+      for (const subitem of pokemon.types) {
+        if (subitem.type.name === "water") {
+          hasWater = true;
+          break;
         }
-    });;
-});
+      }
+      if (hasWater) break;
+    }
 
+    if (hasWater) {
+      showWaterType.classList.add("yes");
+      showWaterType.classList.remove("no");
+    } else {
+      showWaterType.classList.remove("yes");
+      showWaterType.classList.add("no");
+    }
+  }
+
+  buscar.onclick = () => buscarFn(input.value);
+  limpiar.onclick = limpiarFn;
+  sortBtn.onclick = sortFn;
+  waterTypeBtn.onclick = checkWater;
+});
