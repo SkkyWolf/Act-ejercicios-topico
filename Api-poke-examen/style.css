@@ -1,0 +1,96 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url(./img/fondo-pokemon.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.container-ajuste {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    margin: 20px 65px;
+    background-color: yellow;
+    border-radius: 20px;
+    border: 5px solid #17285e;
+}
+
+.container-ajuste img {
+    width: 400px;
+    
+}
+
+.pokemon-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    text-align: center;
+    margin: 20px 60px;
+}
+
+
+.pokemonBox {
+    background-color: yellow;
+    border: 4px solid rgb(14, 44, 128);
+    border-radius: 20px;
+    width: auto;
+}
+
+.ajuste{
+    display: flex;
+    align-items: center;
+}
+
+.estiloInput{
+    text-align: center;
+    
+}
+
+.estiloInput input{
+    width: 400px;
+    height: 40px;
+    border-radius: 10px;
+    padding-left: 20px;
+    background-color: yellow;
+    border: 4px solid rgb(14, 44, 128);
+}
+
+.estiloInput input::placeholder{
+    font-size: 15px;
+    margin-right: 1.5rem;
+
+}
+
+.estiloInput #cantidadPokemon{
+    width: 10rem;
+    text-align: center;
+}
+
+.estiloInput input:focus{
+outline: none;
+}
+
+
+.pokemonBox img{
+    margin-left: 50px;
+}
+
+.pokemonBox h1 {
+    font-weight: 400;
+    width: 2px;
+}
+
+.textStyle{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    font-weight: 600;
+    color: #17285e;   
+    font-family: 'Poppins', sans-serif;
+}
