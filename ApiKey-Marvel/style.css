@@ -1,0 +1,74 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-image: url(./img/fondoMarvel.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+
+.container {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.container button{
+    margin-top: 20px;
+}
+
+h1{
+    color: white;
+    font-size: 60px;
+}
+
+button{
+    padding: 20px;
+    border-radius: 20px;
+    color: rgb(233, 36, 36);
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#characters-list {
+    display: grid;
+    gap: 30px;
+    margin: 20px 40px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.characMarvel {
+    color: rgb(233, 36, 36);
+    font-weight: bold;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.portada-marvel {
+    background-color: rgb(116, 116, 116);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px ;
+}
+
+.imgTa {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.portada-marvel p {
+    font-size: 20px ;
+    font-family: 'Poppins', sans-serif;
+    color: rgb(95, 28, 28);
+    margin-top: 10px;
+    text-align: justify;
+}
